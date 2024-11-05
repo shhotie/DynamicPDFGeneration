@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Invoice</title>
+    <style>
+        /* General Settings for PDF */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 190mm; /* Set to A4 width minus margins */
+            margin: 10mm auto; /* Margins for centering */
+            padding: 10mm;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20pt;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        /* Header Section */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 12pt;
+        }
+
+        .address {
+            width: 45%; /* Set width to control alignment */
+            line-height: 1.5;
+        }
+
+        .address p {
+            margin: 4px 0; /* Adjust spacing between lines */
+        }
+
+        /* Table for Items */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Invoice</h1>
+    <div class="header">
+        <!-- Seller Details -->
+        <div class="address">
+            <p><strong>Seller:</strong> <span th:text="${seller}"></span></p>
+            <p><span th:text="${sellerAddress}"></span></p>
+            <p><strong>GSTIN:</strong> <span th:text="${sellerGstin}"></span></p>
+        </div>
+        <!-- Buyer Details -->
+        <div class="address">
+            <p><strong>Buyer:</strong> <span th:text="${buyer}"></span></p>
+            <p><span th:text="${buyerAddress}"></span></p>
+            <p><strong>GSTIN:</strong> <span th:text="${buyerGstin}"></span></p>
+        </div>
+    </div>
+
+    <!-- Items Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.rate}"></td>
+            <td th:text="${item.amount}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
